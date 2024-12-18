@@ -2,10 +2,16 @@
 #include <fstream>
 #include <string>
 
+
+
 using namespace std;
+
+
 
 // Maximum number of students
 const int MAX_STUDENTS = 100;
+
+
 
 // Student structure
 struct Student {
@@ -17,9 +23,15 @@ struct Student {
     Student() : reg(0), name(""), attendanceCount(0) {}
 };
 
+
+
 // Global variables
-Student students[MAX_STUDENTS]; // Array of students
-int studentCount = 0;           // Number of students currently in the system
+// Array of students
+Student students[MAX_STUDENTS]; 
+// Number of students currently in the system
+int studentCount = 0;          
+
+
 
 // Function to display menu
 void displayMenu() {
@@ -31,6 +43,8 @@ void displayMenu() {
     cout << "Enter your choice: ";
 }
 
+
+
 // Function to ignore string in int input
 int regInt() {
     int value;
@@ -41,6 +55,8 @@ int regInt() {
     }
     return value;
 }
+
+
 
 // Function to add a new student
 void addStudent() {
@@ -65,6 +81,8 @@ void addStudent() {
     cout << "Student added successfully!\n";
 }
 
+
+
 // Function to mark attendance by ID
 void markAttendance(int reg) {
     for (int i = 0; i < studentCount; i++) {
@@ -77,6 +95,8 @@ void markAttendance(int reg) {
     cout << "Student with reg " << reg << " not found!\n";
 }
 
+
+
 // Function to mark attendance by Name
 void markAttendance(string name) {
     for (int i = 0; i < studentCount; i++) {
@@ -88,6 +108,8 @@ void markAttendance(string name) {
     }
     cout << "Student with name \"" << name << "\" not found!\n";
 }
+
+
 
 
 // Recursive function to view attendance
@@ -105,6 +127,8 @@ void viewAttendance(int index = 0) {
     }
 }
 
+
+
 // Function to save attendance to a file
 void saveAttendanceToFile() {
     ofstream outFile("attendance.txt");
@@ -113,6 +137,8 @@ void saveAttendanceToFile() {
     }
     outFile.close();
 }
+
+
 
 // Function to load attendance from a file
 void loadAttendanceFromFile() {
@@ -131,7 +157,10 @@ void loadAttendanceFromFile() {
     inFile.close();
 }
 
-int main() {
+
+
+
+int main(){
     loadAttendanceFromFile();
     int choice;
 
@@ -145,21 +174,25 @@ int main() {
                 break;
 
 
-            case 2: { cout << "Mark attendance by Reg (1) or Name (2): ";
-             int option; cin >> option;
-              if (option == 1) {
-                 int reg; cout << "Enter Student Reg: ";
-                  reg = regInt(); // Here is where regInt is called 
-                  markAttendance(reg);
-                   }
-                    else { string name;
-                     cout << "Enter Student Name: ";
-                      cin.ignore();
-                       getline(cin, name);
-                        markAttendance(name);
-                         }
-                         
+            case 2: {
+                cout << "Mark attendance by Reg (1) or Name (2): ";
+                int option;
+                cin >> option;
+                if (option == 1) {
+                    int reg;
+                    cout << "Enter Student Reg: ";
+                    reg = regInt(); // Here is where regInt is called
+                    markAttendance(reg);
+                }
+                 else {
+                    string name;
+                    cout << "Enter Student Name: ";
+                    cin.ignore();
+                    getline(cin, name);
+                    markAttendance(name);
+                }
                 break;
+            }
 
 
             case 3:
@@ -172,12 +205,13 @@ int main() {
                 cout << "Data saved. Exiting...\n";
                 break;
 
-
             default:
                 cout << "Invalid choice. Try again.\n";
         }
 
+
     } while (choice != 4);
 
+
     return 0;
-    }
+}
