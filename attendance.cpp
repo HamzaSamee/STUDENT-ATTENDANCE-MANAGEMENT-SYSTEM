@@ -35,7 +35,8 @@ int studentCount = 0;
 
 // Function to display menu
 void displayMenu() {
-    cout << "\nStudent Attendance Management System\n";
+    cout<<"\n\n";
+    cout << "Student Attendance Management System\n";
     cout << "1. Add Student\n";
     cout << "2. Mark Attendance\n";
     cout << "3. View Attendance\n";
@@ -114,6 +115,7 @@ void markAttendance(string name) {
 
 // Recursive function to view attendance
 void viewAttendance(int index = 0) {
+    cout<<"\n";
     if (studentCount == 0) {
         cout << "No students in the system.\n";
         return;
@@ -122,7 +124,7 @@ void viewAttendance(int index = 0) {
     if (index< studentCount) {
         cout<< "REG: " << students[index].reg<<endl;
         cout<< ", Name: " << students[index].name<<endl;
-        cout<< ", Attendance: " << students[index].attendanceCount << " days\n";
+        cout<< ", Attendance: " << students[index].attendanceCount << " days"<<endl;
         viewAttendance(index + 1);
     }
 }
@@ -175,24 +177,28 @@ int main(){
 
 
             case 2: {
-                cout << "Mark attendance by Reg (1) or Name (2): ";
-                int option;
-                cin >> option;
-                if (option == 1) {
-                    int reg;
-                    cout << "Enter Student Reg: ";
-                    reg = regInt(); // Here is where regInt is called
-                    markAttendance(reg);
-                }
-                 else {
-                    string name;
-                    cout << "Enter Student Name: ";
-                    cin.ignore();
-                    getline(cin, name);
-                    markAttendance(name);
-                }
-                break;
-            }
+    int option;
+    do {
+        cout << "Mark attendance by Reg (1) or Name (2): ";
+        cin >> option;
+        if (option == 1) {
+            int reg;
+            cout << "Enter Student Reg: ";
+            reg = regInt();
+            markAttendance(reg);
+        } else if (option == 2) {
+            string name;
+            cout << "Enter Student Name: ";
+            cin.ignore();
+            getline(cin, name);
+            markAttendance(name);
+        } else {
+            //Foolproofing
+            cout << "Invalid option. Please enter 1 or 2.\n";
+        }
+    } while (option != 1 && option != 2); // Repeat until a valid option is entered
+    break;
+}
 
 
             case 3:
@@ -208,6 +214,7 @@ int main(){
             default:
                 cout << "Invalid choice. Try again.\n";
         }
+
 
 
     } while (choice != 4);
